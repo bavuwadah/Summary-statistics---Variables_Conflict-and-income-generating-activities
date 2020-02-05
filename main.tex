@@ -1,0 +1,382 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[round]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}    
+
+\lstset{ 
+  language=R,                     % the language of the code
+  basicstyle=\small \ttfamily, % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{Blue},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it is 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  keywordstyle=\color{RoyalBlue},      % keyword style
+  commentstyle=\color{YellowGreen},   % comment style
+  stringstyle=\color{ForestGreen}      % string literal style
+} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{xpatch}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+
+
+\title{Summary Statistics}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{table}[H] \centering 
+  \caption{Definitions of variables}  \scalebox{0.73}{
+  \label{} 
+\begin{tabular}{ll} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & Definition \\ 
+\hline \\[-1.8ex] 
+
+\textit{Income generating activity (IGA)} &   \\
+  
+
+Primary IGA & Dummy variable for 1 if household's primary IGA is agriculture related and 0 otherwise \\ 
+
+Secondary IGA & Dummy variable for 1 if household's secondary IGA is agriculture related and 0 otherwise  \\
+   
+
+Both farm and non-farm  & Dummy variable for 1 if household engages in both ag and non-ag IGAs and 0 if household  \\ 
+
+  &  participates in only IGA sector    \\ 
+
+      &  \\
+
+  \textit{Income from IGAS} &   \\
+  
+Farm income & Net income from all agricultural related activities (includes income from crop and livestock  \\ 
+ & production  as well as wages from agricultural wages) \\ 
+
+
+Non-farm income  & Net income from all agricultural related activities (includes self employment income, transfers  \\
+
+  &  income, and non-ag related wages )\\
+   
+
+
+Total income  & Net income from all income generating activities  \\ 
+   &   \\
+
+
+ Percapita income & $\dfrac{\text{total income}}{\text{# of household members}}$  \\
+   
+      &  \\
+      
+         
+  \textit{Hours spent on IGAs} &   \\
+   farm hours &  Household weekly hours for both primary and secondary ag related IGAs  \\
+   
+         &  \\
+
+     farm hours percapita &  farm hours per capita for all members $>$ 5 years; $\dfrac{\text{farm hours}}{\text{# of household members}}$\\
+           &  \\
+
+         
+         farm hours percapita2  & farm hours per capita for all members $>$ 5 years working in farm IGAs \\ 
+         
+             & $\dfrac{\text{farm hours}}{\text{# of household members participating in ag IGA}}$\\
+             
+                        &  \\
+
+
+ Off-farm hours &  Household weekly hours for both primary and secondary off farm IGAs  \\
+ 
+         & \\
+
+        Off-farm hours percapita &  Off-farm hours per capita for all members $>$ 5 years; $\dfrac{\text{off farm hours}}{\text{# of household members}}$ \\
+         
+                 & \\
+
+         Off-farm hours percapita2  & Off-farm hours per capita for all members $>$ 5 years working in non-farm IGAs; \\ 
+         & \\
+         
+            & $\dfrac{\text{off farm hours}}{\text{# of household members participating in non-ag IGA}}$ \\
+   &   \\
+
+\textit{Count of HH members} &   \\
+  \textit{participating in each IGA} &   \\
+
+  
+  Member count & Number of HH members age 5 or above \\
+
+Farm count   & Number of HH members with positive farm IGA hours\\
+
+Off-farm count   & Number of HH members with positive off-farm IGA hours\\
+
+& \\
+  \textit{Shares of income} &   \\
+  
+    Share of farm income   & Share of total income from ag related IGAs (farm income/total income) \\
+
+   
+  Share of non-farm income   &  Share of total income from non-ag related IGAs (non-farm income/total income)\\
+      
+ Share of self employment income  &  Share of total income from self employed IGAs (self employment income/total income)\\
+
+\hline \\[-1.8ex] 
+\end{tabular}} 
+\end{table}
+
+
+\newpage
+
+\section{Summary statistics for dependent variables}
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Sat, Feb 01, 2020 - 5:20:37 PM
+\begin{table}[H] \centering 
+  \caption{Summary stat for first three waves} \scalebox{0.9}{
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+\hline \\[-1.8ex] 
+\textit{Income generating activity (IGA)}  & & &  &  &  \\ 
+pri\_iga\_farm & 9,968 & 0.486 & 0.500 & 0.000 & 1.000 \\ 
+sec\_iga\_farm & 2,864 & 0.433 & 0.496 & 0.000 & 1.000 \\ 
+both\_farm\_non-farm & 9,975 & 0.190 & 0.392 & 0.000 & 1.000 \\ 
+
+  & & &  &  &  \\ 
+
+\textit{Income from IGAs}  & & &  &  &  \\ 
+w\_crop\_income & 14,251 & 68,859.640 & 150,415.500 & $-$275,936 & 981,800.00 \\ 
+w\_livestock\_income & 14,251 & 3,339.557 & 15,387.160 & $-$4,000 & 131,400.00 \\ 
+w\_agwage\_income & 14,251 & 1,858.578 & 16,585.620 & 0.00 & 208,000.00 \\ 
+w\_farm\_income & 14,251 & 74,057.770 & 153,463.800 & $-$279,936 & 1,113,200.00 \\ 
+w\_nonagwage\_income & 14,251 & 137,805.200 & 424,175.700 & 0.00 & 3,444,000.00 \\ 
+w\_transfers\_income & 14,251 & 1,494.237 & 11,641.130 & 0.00 & 165,000.00 \\ 
+w\_all\_other\_income & 14,251 & 8,117.054 & 44,659.390 & 0.00 & 540,000.00 \\ 
+w\_self\_employment\_income & 14,251 & 171,035.900 & 405,101.200 & 0.00 & 3,738,000.00 \\ 
+w\_nonfarm\_income & 14,251 & 318,492.200 & 606,576.800 & 0.00 & 7,322,000.00 \\ 
+w\_total\_income & 14,251 & 392,549.900 & 611,505.200 & $-$279,936 & 7,318,000.00 \\ 
+w\_percapita\_income & 14,250 & 73,505.640 & 139,884.300 & $-$275,936.400 & 3,444,000.00 \\ 
+
+
+  & & &  &  &  \\ 
+
+ \textit{Share of income} & & &  &  &  \\ 
+w\_share\_self\_employment & 13,853 & 0.379 & 0.415 & 0.000 & 1.000 \\ 
+w\_share\_nonfarm & 13,853 & 0.575 & 0.438 & 0.000 & 1.000 \\ 
+
+  & & &  &  &  \\ 
+
+ \textit{Hours spent} & & &  &  &  \\ 
+
+farm\_hours & 14,251 & 28.319 & 54.995 & 0.00 & 728.00 \\
+farm\_primary\_hours & 14,251 & 25.905 & 53.366 & 0.00 & 728.00 \\ 
+farm\_secondary\_hours & 14,251 & 2.414 & 10.773 & 0.00 & 308.00 \\ 
+
+off\_farm\_hours & 14,251 & 39.986 & 51.901 & 0.00 & 799.00 \\ 
+off\_farm\_primary\_hours & 14,251 & 35.675 & 49.385 & 0.00 & 799.00 \\ 
+off\_farm\_secondary\_hours & 14,251 & 4.311 & 14.288 & 0.00 & 210.00 \\ 
+
+w\_off\_farm\_hours\_pc\_all & 14,251 & 9.376 & 13.168 & 0.00 & 68.00 \\ 
+w\_off\_farm\_hours\_pc\_any & 7,660 & 44.024 & 15.741 & 1.00 & 120.00 \\ 
+
+
+  & & &  &  &  \\ 
+
+ \textit{Household member counts} & & &  &  &  \\ 
+farm\_any\_count & 14,251 & 0.780 & 1.418 & 0.00 & 18.00 \\ 
+off\_farm\_any\_count & 14,251 & 0.900 & 1.084 & 0.00 & 17.00 \\ 
+farm\_member\_count & 14,251 & 5.383 & 3.115 & 1.00 & 31.00 \\ 
+off\_farm\_member\_count & 14,251 & 5.383 & 3.115 & 1.00 & 31.00 \\ 
+
+\hline \\[-1.8ex] 
+\end{tabular} }
+\end{table} 
+
+
+
+% Table generated by Excel2LaTeX from sheet 'summary_iga_year'
+\begin{table}[H]
+  \centering
+  \caption{Summary statistics across three waves}\scalebox{0.8}{
+    \begin{tabular}{lcccccccc}
+    \\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+    Variable & Year & Missing & Complete & N & Mean & St. Dev. & Min & Max \\
+    \hline \\[-1.8ex] 
+    
+    \textit{Income generating activity (IGA)}  & & &  &  & & & \\ 
+    
+   pri\_iga\_farm & 2010  & 375   & 4530  & 4905  & 0.54  & 0.50  & 0.00  & 1.00 \\
+    pri\_iga\_farm & 2012  & 349   & 4415  & 4764  & 0.53  & 0.50  & 0.00  & 1.00 \\
+    pri\_iga\_farm & 2015  & 3559  & 1023  & 4582  & 0.05  & 0.22  & 0.00  & 1.00 \\
+    sec\_iga\_farm & 2010  & 3477  & 1428  & 4905  & 0.46  & 0.50  & 0.00  & 1.00 \\
+    sec\_iga\_farm & 2012  & 3343  & 1421  & 4764  & 0.41  & 0.49  & 0.00  & 1.00 \\
+    sec\_iga\_farm & 2015  & 4567  & 15    & 4582  & 0.33  & 0.49  & 0.00  & 1.00 \\
+
+    both\_enterprise & 2010  & 369   & 4536  & 4905  & 0.21  & 0.41  & 0.00  & 1.00 \\
+    both\_enterprise & 2012  & 348   & 4416  & 4764  & 0.22  & 0.41  & 0.00  & 1.00 \\
+    both\_enterprise & 2015  & 3559  & 1023  & 4582  & 0.00  & 0.07  & 0.00  & 1.00 \\
+
+    & & & & & & & & \\
+ \textit{Income from IGAs}  & & &  &  & & & \\
+ 
+  w\_total\_income & 2010  & 0     & 4905  & 4905  & 300000.00 & 453239.23 & -40500.00 & 3523500.00 \\
+    w\_total\_income & 2012  & 0     & 4764  & 4764  & 456600.68 & 727584.29 & -279936.38 & 7318000.00 \\
+    w\_total\_income & 2015  & 0     & 4582  & 4582  & 425973.37 & 614938.73 & -238700.00 & 6058500.00 \\
+  
+    w\_percapita\_income & 2010  & 1     & 4904  & 4905  & 66503.02 & 128057.60 & -40500.00 & 2327000.00 \\
+    w\_percapita\_income & 2012  & 0     & 4764  & 4764  & 84189.04 & 164361.99 & -275936.38 & 3444000.00 \\
+    w\_percapita\_income & 2015  & 0     & 4582  & 4582  & 69892.63 & 122639.20 & -184700.00 & 2920000.00 \\
+    
+        & & & & & & & & \\
+
+  \textit{Ag-related IGAs}  & & &  &  & & & \\ 
+
+   
+    w\_agwage\_income & 2010  & 0     & 4905  & 4905  & 2230.86 & 15822.36 & 0.00  & 136000.00 \\
+    w\_agwage\_income & 2012  & 0     & 4764  & 4764  & 3262.85 & 23660.09 & 0.00  & 208000.00 \\
+    w\_agwage\_income & 2015  & 0     & 4582  & 4582  & 0.00  & 0.00  & 0.00  & 0.00 \\
+
+   w\_crop\_income & 2010  & 0     & 4905  & 4905  & 65148.20 & 130599.05 & -40500.00 & 800000.00 \\
+    w\_crop\_income & 2012  & 0     & 4764  & 4764  & 66625.71 & 140929.68 & -275936.38 & 762450.00 \\
+    w\_crop\_income & 2015  & 0     & 4582  & 4582  & 75155.36 & 177228.34 & -238700.00 & 981800.00 \\
+    w\_farm\_income & 2010  & 0     & 4905  & 4905  & 69778.18 & 133099.22 & -41100.00 & 943076.00 \\
+    w\_farm\_income & 2012  & 0     & 4764  & 4764  & 73541.87 & 145435.84 & -279936.38 & 970450.00 \\
+    w\_farm\_income & 2015  & 0     & 4582  & 4582  & 79175.44 & 179603.66 & -238700.00 & 1113200.00 \\
+    w\_livestock\_income & 2010  & 0     & 4905  & 4905  & 2399.12 & 12169.94 & -600.00 & 94500.00 \\
+    w\_livestock\_income & 2012  & 0     & 4764  & 4764  & 3653.31 & 16224.94 & -4000.00 & 119450.00 \\
+
+    & & & & & & & & \\
+ \textit{Non-farm IGAs}  & & &  &  & & & \\ 
+
+   w\_nonagwage\_income & 2010  & 0     & 4905  & 4905  & 105104.47 & 323318.91 & 0.00  & 2280000.00 \\
+    w\_nonagwage\_income & 2012  & 0     & 4764  & 4764  & 158370.10 & 490575.44 & 0.00  & 3444000.00 \\
+    w\_nonagwage\_income & 2015  & 0     & 4582  & 4582  & 151429.38 & 442477.41 & 0.00  & 2920000.00 \\
+    w\_nonfarm\_income & 2010  & 0     & 4905  & 4905  & 229339.73 & 446783.42 & 0.00  & 3500000.00 \\
+    w\_nonfarm\_income & 2012  & 0     & 4764  & 4764  & 383058.82 & 726337.72 & 0.00  & 7322000.00 \\
+    w\_nonfarm\_income & 2015  & 0     & 4582  & 4582  & 346797.93 & 607176.99 & 0.00  & 6000000.00 \\
+w\_all\_other\_income & 2010  & 0     & 4905  & 4905  & 3010.00 & 15225.25 & 0.00  & 120000.00 \\
+    w\_all\_other\_income & 2012  & 0     & 4764  & 4764  & 5842.63 & 29667.44 & 0.00  & 260000.00 \\
+    w\_all\_other\_income & 2015  & 0     & 4582  & 4582  & 15948.88 & 70329.12 & 0.00  & 540000.00 \\
+       w\_self\_employment\_income & 2010  & 0     & 4905  & 4905  & 120137.56 & 305537.66 & 0.00  & 2100000.00 \\
+    w\_self\_employment\_income & 2012  & 0     & 4764  & 4764  & 218339.34 & 500000.00 & 0.00  & 3738000.00 \\
+    w\_self\_employment\_income & 2015  & 0     & 4582  & 4582  & 176339.78 & 377428.04 & 0.00  & 2620000.00 \\
+      w\_transfers\_income & 2010  & 0     & 4905  & 4905  & 1087.70 & 7741.09 & 0.00  & 69800.00 \\
+    w\_transfers\_income & 2012  & 0     & 4764  & 4764  & 387.72 & 2678.85 & 0.00  & 25010.00 \\
+    w\_transfers\_income & 2015  & 0     & 4582  & 4582  & 3079.90 & 18600.27 & 0.00  & 165000.00 \\
+   
+   
+
+        & & & & & & & & \\
+
+     \textit{Income generating activity (IGA)}  & & &  &  & & & \\ 
+  w\_share\_nonfarm & 2010  & 207   & 4698  & 4905  & 0.51  & 0.45  & 0.00  & 1.00 \\
+    w\_share\_nonfarm & 2012  & 106   & 4658  & 4764  & 0.60  & 0.43  & 0.00  & 1.00 \\
+    w\_share\_nonfarm & 2015  & 85    & 4497  & 4582  & 0.62  & 0.43  & 0.00  & 1.00 \\
+   
+        \hline \\[-1.8ex] 
+
+    \end{tabular}}%
+  \label{tab:addlabel}%
+\end{table}%
+
+
+
+% Table generated by Excel2LaTeX from sheet 'summary_iga_year'
+\begin{table}[htbp]
+  \centering
+  \caption{Table 3 continued}\scalebox{0.9}{
+    \begin{tabular}{lcccccccc}
+    \\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+    Variable & Year & Missing & Complete & N & Mean & St. Dev. & Min & Max \\
+    \hline \\[-1.8ex] 
+    
+     \textit{Hours spent on Ag IGAs}  & & &  &  & & & \\ 
+     farm\_hours & 2010  & 0     & 4905  & 4905  & 42.27 & 62.98 & 0.00  & 728.00 \\
+    farm\_hours & 2012  & 0     & 4764  & 4764  & 40.68 & 62.00 & 0.00  & 636.00 \\
+    farm\_hours & 2015  & 0     & 4582  & 4582  & 0.53  & 5.15  & 0.00  & 120.00 \\
+
+ farm\_primary\_hours & 2010  & 0     & 4905  & 4905  & 38.51 & 61.54 & 0.00  & 728.00 \\
+    farm\_primary\_hours & 2012  & 0     & 4764  & 4764  & 37.36 & 60.67 & 0.00  & 636.00 \\
+    farm\_primary\_hours & 2015  & 0     & 4582  & 4582  & 0.50  & 5.07  & 0.00  & 120.00 \\
+    farm\_secondary\_hours & 2010  & 0     & 4905  & 4905  & 3.76  & 13.29 & 0.00  & 294.00 \\
+    farm\_secondary\_hours & 2012  & 0     & 4764  & 4764  & 3.33  & 12.51 & 0.00  & 308.00 \\
+    farm\_secondary\_hours & 2015  & 0     & 4582  & 4582  & 0.02  & 0.91  & 0.00  & 52.00 \\
+
+        & & & & & & & & \\
+ \textit{Hours spent on non-ag IGAs}  & & &  &  & & & \\ 
+
+    off\_farm\_hours & 2010  & 0     & 4905  & 4905  & 52.46 & 56.05 & 0.00  & 799.00 \\
+    off\_farm\_hours & 2012  & 0     & 4764  & 4764  & 53.75 & 53.92 & 0.00  & 572.00 \\
+    off\_farm\_hours & 2015  & 0     & 4582  & 4582  & 12.32 & 29.39 & 0.00  & 378.00 \\
+
+  off\_farm\_primary\_hours & 2010  & 0     & 4905  & 4905  & 46.32 & 53.70 & 0.00  & 799.00 \\
+    off\_farm\_primary\_hours & 2012  & 0     & 4764  & 4764  & 47.22 & 52.21 & 0.00  & 546.00 \\
+    off\_farm\_primary\_hours & 2015  & 0     & 4582  & 4582  & 12.28 & 29.29 & 0.00  & 378.00 \\
+    off\_farm\_secondary\_hours & 2010  & 0     & 4905  & 4905  & 6.14  & 17.01 & 0.00  & 210.00 \\
+    off\_farm\_secondary\_hours & 2012  & 0     & 4764  & 4764  & 6.53  & 16.89 & 0.00  & 188.00 \\
+    off\_farm\_secondary\_hours & 2015  & 0     & 4582  & 4582  & 0.04  & 1.27  & 0.00  & 65.00 \\
+
+ w\_off\_farm\_hours\_pc\_all & 2010  & 0     & 4905  & 4905  & 13.49 & 15.34 & 0.00  & 68.00 \\
+    w\_off\_farm\_hours\_pc\_all & 2012  & 0     & 4764  & 4764  & 11.50 & 12.91 & 0.00  & 62.00 \\
+    w\_off\_farm\_hours\_pc\_all & 2015  & 0     & 4582  & 4582  & 2.76  & 6.88  & 0.00  & 40.00 \\
+    w\_off\_farm\_hours\_pc\_any & 2010  & 1618  & 3287  & 4905  & 44.42 & 15.90 & 1.00  & 88.00 \\
+    w\_off\_farm\_hours\_pc\_any & 2012  & 1425  & 3339  & 4764  & 43.68 & 14.66 & 1.00  & 84.00 \\
+    w\_off\_farm\_hours\_pc\_any & 2015  & 3548  & 1034  & 4582  & 43.87 & 18.38 & 2.00  & 120.00 \\
+
+    
+        & & & & & & & & \\
+
+    \textit{HH member in Ag IGAs}  & & &  &  & & & \\ 
+
+    farm\_any\_count & 2010  & 0     & 4905  & 4905  & 1.19  & 1.68  & 0.00  & 18.00 \\
+    farm\_any\_count & 2012  & 0     & 4764  & 4764  & 1.09  & 1.51  & 0.00  & 15.00 \\
+    farm\_any\_count & 2015  & 0     & 4582  & 4582  & 0.01  & 0.13  & 0.00  & 4.00 \\
+
+      farm\_member\_count & 2010  & 0     & 4905  & 4905  & 4.74  & 2.74  & 1.00  & 30.00 \\
+    farm\_member\_count & 2012  & 0     & 4764  & 4764  & 5.72  & 3.20  & 1.00  & 31.00 \\
+    farm\_member\_count & 2015  & 0     & 4582  & 4582  & 5.71  & 3.29  & 1.00  & 31.00 \\
+
+
+        & & & & & & & & \\
+    \textit{HH member in non-ag IGAs}  & & &  &  & & & \\ 
+
+     off\_farm\_any\_count & 2010  & 0     & 4905  & 4905  & 1.18  & 1.16  & 0.00  & 17.00 \\
+    off\_farm\_any\_count & 2012  & 0     & 4764  & 4764  & 1.22  & 1.12  & 0.00  & 9.00 \\
+    off\_farm\_any\_count & 2015  & 0     & 4582  & 4582  & 0.27  & 0.58  & 0.00  & 5.00 \\
+    
+   off\_farm\_member\_count & 2010  & 0     & 4905  & 4905  & 4.74  & 2.74  & 1.00  & 30.00 \\
+    off\_farm\_member\_count & 2012  & 0     & 4764  & 4764  & 5.72  & 3.20  & 1.00  & 31.00 \\
+    off\_farm\_member\_count & 2015  & 0     & 4582  & 4582  & 5.71  & 3.29  & 1.00  & 31.00 \\
+
+    \hline \\[-1.8ex] 
+
+    \end{tabular}}%
+  \label{tab:addlabel}%
+\end{table}%
+
+
+
+\end{document}
